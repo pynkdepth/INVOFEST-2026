@@ -27,8 +27,11 @@ export default function Login() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: FormData) => {
-    const success = login(data.username, data.password);
+  // 🛠️ PERUBAHAN DISINI: Menambahkan keyword async
+  const onSubmit = async (data: FormData) => {
+    // 🛠️ PERUBAHAN DISINI: Menambahkan await agar frontend menunggu respons API backend
+    const success = await login(data.username, data.password);
+    
     if (success) {
       navigate("/dashboard");
     } else {
@@ -77,7 +80,7 @@ export default function Login() {
           disabled={isSubmitting}
           className="w-full bg-[#7B1D3F] hover:bg-[#9e2550] active:scale-[0.98] text-white font-semibold text-[15px] py-3 rounded-[10px] transition-all duration-200 tracking-tight mt-1 disabled:opacity-50"
         >
-          Masuk →
+          {isSubmitting ? "Memproses..." : "Masuk →"}
         </button>
       </form>
 

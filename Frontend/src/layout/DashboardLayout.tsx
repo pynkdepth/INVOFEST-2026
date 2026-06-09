@@ -26,7 +26,7 @@ export default function DashboardLayout() {
     { name: "Category Event", path: "/dashboard/category", icon: "🗂️" },
     { name: "Event", path: "/dashboard/event", icon: "📅" },
     { name: "Pembicara", path: "/dashboard/pembicara", icon: "🎤" },
-    { name: "User", path: "/dashboard/user", icon: "👤" }, // ← tambah ini
+    { name: "User", path: "/dashboard/user", icon: "👤" },
   ];
 
   return (
@@ -111,11 +111,11 @@ export default function DashboardLayout() {
               }
             `}
           >
-            {/* Avatar */}
-            {user?.photo ? (
+            {/* Avatar (Membaca properti user.foto) */}
+            {user?.foto ? (
               <img
-                src={user.photo}
-                alt={user.nama}
+                src={user.foto}
+                alt={user.username}
                 className="w-12 h-12 rounded-2xl object-cover shadow-sm ring-2 ring-white"
                 onError={(e) => { e.currentTarget.style.display = "none"; }}
               />
@@ -126,7 +126,8 @@ export default function DashboardLayout() {
                   : "bg-[#7B1D3F] text-white"
                 }
               `}>
-                {user?.nama?.charAt(0).toUpperCase() ?? "F"}
+                {/* Ambil inisial huruf dari username (NIM) */}
+                {user?.username?.charAt(0).toUpperCase() ?? "F"}
               </div>
             )}
 
@@ -134,7 +135,8 @@ export default function DashboardLayout() {
               <h3 className={`text-sm font-bold truncate
                 ${location.pathname === "/dashboard/biodata" ? "text-white" : "text-[#1a0a10]"}
               `}>
-                {user?.nama ?? "Fatih Mubarok"}
+                {/* 🛠️ OTOMATIS: Jika yang login NIM kamu, tampilkan namamu murni */}
+                {user?.username === "24090034" ? "Angga Dwi resky maulana" : (user?.username ?? "Nama Pengguna")}
               </h3>
               <p className={`text-xs truncate
                 ${location.pathname === "/dashboard/biodata" ? "text-white/70" : "text-gray-400"}

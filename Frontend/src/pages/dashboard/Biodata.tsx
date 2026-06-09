@@ -7,8 +7,9 @@ export default function Biodata() {
   const user = useAuthStore((s) => s.user);
   const [imgError, setImgError] = useState(false);
 
+  // 🛠️ PERUBAHAN: Menyesuaikan properti ke user?.username sesuai isi useAuthStore
   const info = [
-    { label: "NIM", value: user?.nim ?? "-" },
+    { label: "NIM", value: user?.username ?? "-" },
     { label: "Program Studi", value: "D-4 Teknik Informatika" },
     { label: "Fakultas", value: "Sekolah Vokasi" },
     { label: "Kampus", value: "Kota Tegal" },
@@ -39,17 +40,19 @@ export default function Biodata() {
 
           {/* Avatar */}
           <div className="-mt-10 mb-5">
-            {user?.photo && !imgError ? (
+            {/* 🛠️ PERUBAHAN: Properti disesuaikan ke user.foto */}
+            {user?.foto && !imgError ? (
               <img
-                src={user.photo}
-                alt={user.nama}
+                src={user.foto}
+                alt={user.username}
                 onError={() => setImgError(true)}
                 className="w-20 h-20 rounded-2xl object-cover border-4 border-white shadow-md"
               />
             ) : (
               <div className="w-20 h-20 rounded-2xl bg-[#7B1D3F] border-4 border-white shadow-md flex items-center justify-center">
                 <span className="text-3xl font-black text-white">
-                  {user?.nama?.charAt(0).toUpperCase() ?? "F"}
+                  {/* 🛠️ PERUBAHAN: Mengambil inisial huruf dari username */}
+                  {user?.username?.charAt(0).toUpperCase() ?? "F"}
                 </span>
               </div>
             )}
@@ -57,7 +60,8 @@ export default function Biodata() {
 
           {/* Nama */}
           <h2 className="text-xl font-bold text-[#1a0a10] mb-1">
-            {user?.nama ?? "Fatih Mubarok"}
+            {/* 🛠️ PERUBAHAN: Jika di DB username berisi NIM, kamu bisa pakai fallback nama asli kamu di sini */}
+            {user?.username === "24090034" ? "Fatih Mubarok" : (user?.username ?? "Angga Dwi resky maulana")}
           </h2>
           <p className="text-sm text-gray-400 mb-6">Administrator — Invofest</p>
 

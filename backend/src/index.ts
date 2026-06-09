@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-
+import * as bcrypt from "bcrypt";
 import eventRoutes from "./Routes/eventRoute.js";
 import categoryRoutes from "./Routes/categoryRoute.js";
 import pembicaraRoutes from "./Routes/pembicaraRoute.js";

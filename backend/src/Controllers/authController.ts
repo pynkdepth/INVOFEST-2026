@@ -41,7 +41,7 @@ export const login = async (req: Request, res: Response) => {
         id: user.id,
         username: user.username,
       },
-      process.env.JWT_SECRET as string,
+      "invofest_pynkdepth_rahasia_123",
       {
         expiresIn: "1d",
       }

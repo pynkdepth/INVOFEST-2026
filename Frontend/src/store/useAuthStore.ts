@@ -1,29 +1,21 @@
 // src/store/useAuthStore.ts
-
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 interface User {
-  nim: string;
-  nama: string;
-  photo?: string;
+  username: string;
+  foto?: string;
 }
 
 interface AuthState {
   isAuthenticated: boolean;
   user: User | null;
-  login: (nim: string, password: string) => boolean;
+  login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
 }
-
-const VALID_USERS = [
-  {
-    nim: "24090002",
-    password: "24090002",
-    nama: "Fatih Mubarok",
-    photo: "/foto.jpeg",
-  },
-];
 
 export const useAuthStore = create<AuthState>()(
   persist(
@@ -31,25 +23,41 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       user: null,
 
-      login: (nim, password) => {
-        const found = VALID_USERS.find(
-          (u) => u.nim === nim && u.password === password
-        );
-        if (found) {
-          set({
-            isAuthenticated: true,
-            user: {
-              nim: found.nim,
-              nama: found.nama,
-              photo: found.photo,
-            },
+      login: async (username, password) => {
+        try {
+          const response = await axios.post(`${API_URL}/api/login`, {
+            username,
+            password,
           });
-          return true;
+
+          // 🛠️ DISESUAIKAN: Karena backend membungkus datanya di dalam objek 'data' (response.data.data)
+          if (response.data && response.data.success) {
+            const loginData = response.data.data;
+
+            if (loginData.token) {
+              localStorage.setItem("token", loginData.token);
+            }
+
+            set({
+              isAuthenticated: true,
+              user: {
+                username: loginData.user?.username || username,
+                foto: loginData.user?.foto || null,
+              },
+            });
+            return true;
+          }
+          return false;
+        } catch (error) {
+          console.error("Login API Error:", error);
+          return false;
         }
-        return false;
       },
 
-      logout: () => set({ isAuthenticated: false, user: null }),
+      logout: () => {
+        localStorage.removeItem("token");
+        set({ isAuthenticated: false, user: null });
+      },
     }),
     { name: "auth-storage" }
   )
