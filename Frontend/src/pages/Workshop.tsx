@@ -97,7 +97,7 @@ export default function Workshop() {
             Daftar Sekarang
           </button>
         </div>
-        <div className="mt-10 md:mt-0 flex-shrink-0">
+        <div className="mt-10 md:mt-0 shrink-0">
           <img
             src="https://www.invofest-harkatnegeri.com/assets/Maskot-Lomba.png"
             alt="INVOFEST Mascot"
@@ -189,7 +189,7 @@ export default function Workshop() {
                   key={w.title}
                   className="bg-white rounded-xl p-4 flex items-center gap-4 shadow-sm flex-1"
                 >
-                  <div className="bg-[#7B1D3F] text-white rounded-lg w-14 h-14 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                  <div className="bg-[#7B1D3F] text-white rounded-lg w-14 h-14 flex items-center justify-center text-xl font-bold shrink-0">
                     {w.icon}
                   </div>
                   <div className="text-left">
@@ -210,7 +210,7 @@ export default function Workshop() {
 
             <div className="flex justify-center">
               <div className="bg-white rounded-xl p-4 flex items-center gap-4 shadow-sm w-full md:w-1/2">
-                <div className="bg-[#7B1D3F] text-white rounded-lg w-14 h-14 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                <div className="bg-[#7B1D3F] text-white rounded-lg w-14 h-14 flex items-center justify-center text-xl font-bold shrink-0">
                   {workshops[2].icon}
                 </div>
                 <div className="text-left">

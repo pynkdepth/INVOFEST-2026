@@ -111,7 +111,7 @@ export default function Beranda() {
             </button>
           </div>
         </div>
-        <div className="mt-10 md:mt-0 flex-shrink-0">
+        <div className="mt-10 md:mt-0 shrink-0">
           <img
             src="https://www.invofest-harkatnegeri.com/assets/Maskot-Hero.png"
             alt="INVOFEST Mascot"
@@ -211,7 +211,7 @@ export default function Beranda() {
             }`}
           >
             {/* mascot */}
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <img
                 src={ev.mascot}
                 alt={ev.mascotAlt}
